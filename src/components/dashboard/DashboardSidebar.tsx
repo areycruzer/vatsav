@@ -54,7 +54,7 @@ export function DashboardSidebar({ currentView, onViewChange }: DashboardSidebar
             <Radio className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h2 className="text-sm font-semibold text-foreground">Emergency Dashboard</h2>
+            <h2 className="text-sm font-semibold text-foreground">Vatsav Emergency Dashboard</h2>
             <p className="text-xs text-muted-foreground">LIVE</p>
           </div>
         </div>

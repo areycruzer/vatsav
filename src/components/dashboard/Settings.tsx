@@ -27,19 +27,19 @@ export function Settings() {
           <div className="space-y-4">
             <div>
               <Label htmlFor="name" className="text-sm font-medium text-foreground">Full Name</Label>
-              <Input id="name" defaultValue="John Smith" className="mt-1" />
+              <Input id="name" defaultValue="Vatsav Sharma" className="mt-1" />
             </div>
             <div>
               <Label htmlFor="role" className="text-sm font-medium text-foreground">Role</Label>
-              <Input id="role" defaultValue="911 Operator" className="mt-1" />
+              <Input id="role" defaultValue="Emergency Operator" className="mt-1" />
             </div>
             <div>
               <Label htmlFor="contact" className="text-sm font-medium text-foreground">Contact</Label>
-              <Input id="contact" defaultValue="+1 714123456" className="mt-1" />
+              <Input id="contact" defaultValue="+91 9821123456" className="mt-1" />
             </div>
             <div>
               <Label htmlFor="languages" className="text-sm font-medium text-foreground">Languages</Label>
-              <Input id="languages" defaultValue="English, Spanish" className="mt-1" />
+              <Input id="languages" defaultValue="Hindi, English, Marathi" className="mt-1" />
             </div>
           </div>
         </Card>

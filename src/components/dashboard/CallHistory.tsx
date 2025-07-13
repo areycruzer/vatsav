@@ -8,7 +8,7 @@ const callHistory = [
   {
     id: "001",
     type: "Fire",
-    time: "10:03:20 AM UT", 
+    time: "10:03:20 AM IST", 
     duration: "2:12 min",
     waitTime: "20 sec",
     severity: "SAFE",
@@ -17,7 +17,7 @@ const callHistory = [
   {
     id: "002",
     type: "Flood", 
-    time: "10:18:20 AM UT",
+    time: "10:18:20 AM IST",
     duration: "1:25 min",
     waitTime: "19 sec",
     severity: "CRITICAL",
@@ -26,7 +26,7 @@ const callHistory = [
   {
     id: "003",
     type: "Fire",
-    time: "10:03:20 AM UT",
+    time: "10:03:20 AM IST",
     duration: "2:12 min", 
     waitTime: "20 sec",
     severity: "MILD",
@@ -35,7 +35,7 @@ const callHistory = [
   {
     id: "004",
     type: "Medical",
-    time: "10:08:12 AM UT",
+    time: "10:08:12 AM IST",
     duration: "4:45 min",
     waitTime: "17 sec",
     severity: "SAFE", 
@@ -44,7 +44,7 @@ const callHistory = [
   {
     id: "005",
     type: "Fire",
-    time: "10:03:20 AM UT",
+    time: "10:03:20 AM IST",
     duration: "2:12 min",
     waitTime: "20 sec",
     severity: "CRITICAL",
@@ -53,7 +53,7 @@ const callHistory = [
   {
     id: "006", 
     type: "Robbery",
-    time: "10:15:55 AM UT",
+    time: "10:15:55 AM IST",
     duration: "2:58 min",
     waitTime: "28 sec",
     severity: "SAFE",
@@ -62,7 +62,7 @@ const callHistory = [
   {
     id: "007",
     type: "Fire",
-    time: "10:03:20 AM UT", 
+    time: "10:03:20 AM IST", 
     duration: "2:12 min",
     waitTime: "20 sec",
     severity: "CRITICAL",

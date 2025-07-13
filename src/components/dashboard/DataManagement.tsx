@@ -11,17 +11,17 @@ const metrics = [
 ];
 
 const statusData = [
-  { name: "Radio tower 2", location: "North", status: "active" },
-  { name: "Radio tower 2", location: "North", status: "active" },
-  { name: "Radio tower 2", location: "North", status: "active" }
+  { name: "Control Tower Mumbai Central", location: "South Mumbai", status: "active" },
+  { name: "Control Tower Andheri", location: "Western Suburbs", status: "active" },
+  { name: "Control Tower Thane", location: "Eastern Suburbs", status: "active" }
 ];
 
 const dispatchers = [
-  { id: "001", role: "911", lastActive: "10:03:20 AM UT", status: "Active", contact: "+1 714123456", languages: "English, Spanish" },
-  { id: "002", role: "911", lastActive: "10:18:20 AM UT", status: "Active", contact: "+1 714123456", languages: "English, Spanish" },
-  { id: "003", role: "RCO", lastActive: "10:03:20 AM UT", status: "Busy", contact: "+1 714123456", languages: "English" },
-  { id: "004", role: "Transit", lastActive: "10:08:12 AM UT", status: "Active", contact: "+1 714123456", languages: "English, Chinese" },
-  { id: "005", role: "Transit", lastActive: "10:03:20 AM UT", status: "Busy", contact: "+1 714123456", languages: "English, Vietnamese" }
+  { id: "001", role: "Emergency", lastActive: "10:03:20 AM IST", status: "Active", contact: "+91 9821123456", languages: "Hindi, English" },
+  { id: "002", role: "Emergency", lastActive: "10:18:20 AM IST", status: "Active", contact: "+91 9823456789", languages: "Marathi, English" },
+  { id: "003", role: "Police", lastActive: "10:03:20 AM IST", status: "Busy", contact: "+91 9876543210", languages: "Hindi, English" },
+  { id: "004", role: "Traffic", lastActive: "10:08:12 AM IST", status: "Active", contact: "+91 9988776655", languages: "English, Gujarati" },
+  { id: "005", role: "Fire", lastActive: "10:03:20 AM IST", status: "Busy", contact: "+91 9123456789", languages: "Hindi, Marathi" }
 ];
 
 export function DataManagement() {

@@ -7,72 +7,72 @@ const incidents = [
   {
     id: "001",
     type: "Fire",
-    time: "10:03:20 AM UT",
+    time: "10:03:20 AM IST",
     duration: "2:12 min",
     waitTime: "20 sec",
     severity: "SAFE",
     status: "Active",
-    location: "Lincoln Ave"
+    location: "MG Road, Pune"
   },
   {
     id: "002", 
     type: "Flood",
-    time: "10:18:20 AM UT",
+    time: "10:18:20 AM IST",
     duration: "1:25 min",
     waitTime: "19 sec",
     severity: "CRITICAL",
     status: "Resolved",
-    location: "Main St"
+    location: "Nariman Point, Mumbai"
   },
   {
     id: "003",
     type: "Fire", 
-    time: "10:03:20 AM UT",
+    time: "10:03:20 AM IST",
     duration: "2:12 min",
     waitTime: "20 sec",
     severity: "MILD",
     status: "Active",
-    location: "Oak Dr"
+    location: "Connaught Place, Delhi"
   },
   {
     id: "004",
     type: "Medical",
-    time: "10:08:12 AM UT", 
+    time: "10:08:12 AM IST", 
     duration: "4:45 min",
     waitTime: "17 sec",
     severity: "SAFE",
     status: "Resolved",
-    location: "Pine St"
+    location: "Brigade Road, Bangalore"
   },
   {
     id: "005",
     type: "Fire",
-    time: "10:03:20 AM UT",
+    time: "10:03:20 AM IST",
     duration: "2:12 min", 
     waitTime: "20 sec",
     severity: "CRITICAL",
     status: "Active",
-    location: "Elm Ave"
+    location: "Park Street, Kolkata"
   },
   {
     id: "006",
     type: "Robbery",
-    time: "10:15:55 AM UT",
+    time: "10:15:55 AM IST",
     duration: "2:58 min",
     waitTime: "28 sec", 
     severity: "SAFE",
     status: "Resolved",
-    location: "1st St"
+    location: "Anna Salai, Chennai"
   },
   {
     id: "007",
     type: "Fire",
-    time: "10:03:20 AM UT",
+    time: "10:03:20 AM IST",
     duration: "2:12 min",
     waitTime: "20 sec",
     severity: "CRITICAL", 
     status: "Active",
-    location: "2nd Ave"
+    location: "Sector 17, Chandigarh"
   }
 ];
 

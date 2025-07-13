@@ -7,43 +7,43 @@ const emergencies = [
   {
     id: "001",
     type: "House Fire",
-    location: "Lincoln Ave.",
+    location: "Linking Road, Bandra",
     time: "10:31AM",
     status: "critical",
-    description: "Critical house fire detected. Detected 3 mi away in Spring Ave."
+    description: "Critical house fire detected. Located 5 km away in Carter Road area."
   },
   {
     id: "002", 
-    type: "Car Theft",
-    location: "Yorktown Dr.",
+    type: "Vehicle Theft",
+    location: "SV Road, Goregaon",
     time: "10:31AM",
     status: "warning"
   },
   {
     id: "003",
     type: "Attempted Robbery",
-    location: "Cafe",
+    location: "Cafe Coffee Day, Andheri",
     time: "10:31AM", 
     status: "warning"
   },
   {
     id: "004",
     type: "Noise complaint",
-    location: "8th Street",
+    location: "Hill Road, Bandra",
     time: "10:31AM",
     status: "safe"
   },
   {
     id: "005",
     type: "Illegal parking",
-    location: "Crows Dr.",
+    location: "Marine Drive",
     time: "10:31AM",
     status: "safe"
   },
   {
     id: "006",
     type: "Loud party",
-    location: "Claus Ave.",
+    location: "Juhu Beach Road",
     time: "10:31AM",
     status: "safe"
   }
