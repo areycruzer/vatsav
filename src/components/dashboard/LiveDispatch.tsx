@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, MapPin, Clock, Eye, X } from "lucide-react";
+import { AlertTriangle, MapPin, Clock, Eye, X, Phone } from "lucide-react";
 
 const emergencies = [
   {
@@ -156,6 +156,32 @@ export function LiveDispatch() {
             </div>
           </Card>
         </div>
+      </div>
+
+      {/* Initiate Call Section */}
+      <div className="mt-6">
+        <Card className="bg-bg-elevated border-border">
+          <div className="p-4 border-b border-border">
+            <div className="flex items-center gap-3">
+              <Phone className="w-5 h-5 text-accent-main" />
+              <div>
+                <h2 className="text-lg font-semibold text-foreground">Initiate Emergency Call</h2>
+                <p className="text-sm text-muted-foreground">AI-powered emergency communication system</p>
+              </div>
+            </div>
+          </div>
+          <div className="p-4">
+            <div className="w-full h-[500px] rounded-lg overflow-hidden border border-border">
+              <iframe 
+                src="https://hume-tan.vercel.app/"
+                className="w-full h-full"
+                title="Emergency Call Interface"
+                frameBorder="0"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   );
