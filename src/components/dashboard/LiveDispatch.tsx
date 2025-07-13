@@ -2,6 +2,17 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, MapPin, Clock, Eye, X, Phone } from "lucide-react";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default marker icon issue with webpack
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+});
 
 const emergencies = [
   {
@@ -137,23 +148,20 @@ export function LiveDispatch() {
           </Card>
         </div>
 
-        {/* Map Placeholder */}
+        {/* Map */}
         <div className="col-span-8">
           <Card className="h-[600px] bg-bg-elevated border-border relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-bg-panel to-bg-overlay">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-accent-main mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Real-time Emergency Map</h3>
-                  <p className="text-muted-foreground">Interactive incident tracking and unit positioning</p>
-                </div>
-              </div>
-              
-              {/* Simulated map markers */}
-              <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-status-critical rounded-full animate-pulse shadow-lg" />
-              <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-status-warning rounded-full animate-pulse shadow-lg" />
-              <div className="absolute bottom-1/3 right-1/4 w-3 h-3 bg-status-safe rounded-full shadow-lg" />
-            </div>
+            <MapContainer center={[19.0760, 72.8777]} zoom={12} style={{ height: '100%', width: '100%' }}>
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Marker position={[19.0760, 72.8777]}>
+                <Popup>
+                  A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+              </Marker>
+            </MapContainer>
           </Card>
         </div>
       </div>
@@ -177,6 +185,7 @@ export function LiveDispatch() {
                 className="w-full h-full"
                 title="Emergency Call Interface"
                 frameBorder="0"
+                allow="microphone"
                 allowFullScreen
               />
             </div>
