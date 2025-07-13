@@ -61,7 +61,23 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Emergency Dashboard Status Colors
+				status: {
+					safe: 'hsl(var(--status-safe))',
+					warning: 'hsl(var(--status-warning))',
+					critical: 'hsl(var(--status-critical))',
+					active: 'hsl(var(--status-active))'
+				},
+				// Emergency Dashboard Accents
+				'accent-main': 'hsl(var(--accent-main))',
+				'accent-safe': 'hsl(var(--accent-safe))',
+				'accent-warning': 'hsl(var(--accent-warning))',
+				'accent-critical': 'hsl(var(--accent-critical))',
+				// Emergency Dashboard Backgrounds
+				'bg-elevated': 'hsl(var(--background-elevated))',
+				'bg-panel': 'hsl(var(--background-panel))',
+				'bg-overlay': 'hsl(var(--background-overlay))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
