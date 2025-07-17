@@ -4,9 +4,66 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Settings as SettingsIcon, User, Bell, Shield, Map, Radio } from "lucide-react";
+import { Settings as SettingsIcon, User, Bell, Shield, Map } from "lucide-react";
+import { useState } from 'react';
 
 export function Settings() {
+  const [settings, setSettings] = useState({
+    userProfile: {
+      name: 'Vatsav Sharma',
+      role: 'Emergency Operator',
+      contact: '+91 9821123456',
+      languages: 'Hindi, English, Marathi',
+    },
+    notifications: {
+      criticalAlerts: true,
+      audioAlerts: true,
+      desktopNotifications: false,
+      emailSummaries: true,
+    },
+    security: {
+      twoFactorAuth: true,
+      autoLogout: true,
+      sessionTimeout: '30',
+    },
+    map: {
+      mapStyle: 'satellite',
+      realTimeTracking: true,
+      trafficLayer: false,
+      refreshRate: '5',
+    },
+  });
+
+  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setSettings(prev => ({ ...prev, userProfile: { ...prev.userProfile, [id]: value } }));
+  };
+
+  const handleNotificationChange = (id: string, checked: boolean) => {
+    setSettings(prev => ({ ...prev, notifications: { ...prev.notifications, [id]: checked } }));
+  };
+
+  const handleSecurityChange = (id: string, value: string | boolean) => {
+     if (typeof value === 'boolean') {
+      setSettings(prev => ({ ...prev, security: { ...prev.security, [id]: value } }));
+    } else {
+      setSettings(prev => ({ ...prev, security: { ...prev.security, sessionTimeout: value } }));
+    }
+  };
+
+  const handleMapChange = (id: string, value: string | boolean) => {
+    if (typeof value === 'boolean') {
+      setSettings(prev => ({ ...prev, map: { ...prev.map, [id]: value } }));
+    } else {
+      setSettings(prev => ({ ...prev, map: { ...prev.map, [id]: value } }));
+    }
+  };
+
+  const handleSave = () => {
+    console.log('Settings saved:', settings);
+    alert('Settings saved successfully! (Check console for details)');
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
@@ -27,19 +84,19 @@ export function Settings() {
           <div className="space-y-4">
             <div>
               <Label htmlFor="name" className="text-sm font-medium text-foreground">Full Name</Label>
-              <Input id="name" defaultValue="Vatsav Sharma" className="mt-1" />
+              <Input id="name" value={settings.userProfile.name} onChange={handleProfileChange} className="mt-1" />
             </div>
             <div>
               <Label htmlFor="role" className="text-sm font-medium text-foreground">Role</Label>
-              <Input id="role" defaultValue="Emergency Operator" className="mt-1" />
+              <Input id="role" value={settings.userProfile.role} onChange={handleProfileChange} className="mt-1" />
             </div>
             <div>
               <Label htmlFor="contact" className="text-sm font-medium text-foreground">Contact</Label>
-              <Input id="contact" defaultValue="+91 9821123456" className="mt-1" />
+              <Input id="contact" value={settings.userProfile.contact} onChange={handleProfileChange} className="mt-1" />
             </div>
             <div>
               <Label htmlFor="languages" className="text-sm font-medium text-foreground">Languages</Label>
-              <Input id="languages" defaultValue="Hindi, English, Marathi" className="mt-1" />
+              <Input id="languages" value={settings.userProfile.languages} onChange={handleProfileChange} className="mt-1" />
             </div>
           </div>
         </Card>
@@ -56,28 +113,28 @@ export function Settings() {
                 <Label className="text-sm font-medium text-foreground">Critical Alerts</Label>
                 <p className="text-xs text-muted-foreground">Immediate notifications for critical incidents</p>
               </div>
-              <Switch defaultChecked />
+              <Switch id="criticalAlerts" checked={settings.notifications.criticalAlerts} onCheckedChange={(checked) => handleNotificationChange('criticalAlerts', checked)} />
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <Label className="text-sm font-medium text-foreground">Audio Alerts</Label>
                 <p className="text-xs text-muted-foreground">Sound notifications for new calls</p>
               </div>
-              <Switch defaultChecked />
+              <Switch id="audioAlerts" checked={settings.notifications.audioAlerts} onCheckedChange={(checked) => handleNotificationChange('audioAlerts', checked)} />
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <Label className="text-sm font-medium text-foreground">Desktop Notifications</Label>
                 <p className="text-xs text-muted-foreground">Browser notifications when minimized</p>
               </div>
-              <Switch />
+              <Switch id="desktopNotifications" checked={settings.notifications.desktopNotifications} onCheckedChange={(checked) => handleNotificationChange('desktopNotifications', checked)} />
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <Label className="text-sm font-medium text-foreground">Email Summaries</Label>
                 <p className="text-xs text-muted-foreground">Daily incident summary reports</p>
               </div>
-              <Switch defaultChecked />
+              <Switch id="emailSummaries" checked={settings.notifications.emailSummaries} onCheckedChange={(checked) => handleNotificationChange('emailSummaries', checked)} />
             </div>
           </div>
         </Card>
@@ -94,18 +151,18 @@ export function Settings() {
                 <Label className="text-sm font-medium text-foreground">Two-Factor Authentication</Label>
                 <p className="text-xs text-muted-foreground">Additional security for your account</p>
               </div>
-              <Switch defaultChecked />
+              <Switch id="twoFactorAuth" checked={settings.security.twoFactorAuth} onCheckedChange={(checked) => handleSecurityChange('twoFactorAuth', checked)} />
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <Label className="text-sm font-medium text-foreground">Auto Logout</Label>
                 <p className="text-xs text-muted-foreground">Automatic logout after inactivity</p>
               </div>
-              <Switch defaultChecked />
+              <Switch id="autoLogout" checked={settings.security.autoLogout} onCheckedChange={(checked) => handleSecurityChange('autoLogout', checked)} />
             </div>
             <div>
               <Label htmlFor="timeout" className="text-sm font-medium text-foreground">Session Timeout</Label>
-              <Select defaultValue="30">
+              <Select value={settings.security.sessionTimeout} onValueChange={(value) => handleSecurityChange('sessionTimeout', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -129,7 +186,7 @@ export function Settings() {
           <div className="space-y-4">
             <div>
               <Label htmlFor="mapStyle" className="text-sm font-medium text-foreground">Map Style</Label>
-              <Select defaultValue="satellite">
+              <Select value={settings.map.mapStyle} onValueChange={(value) => handleMapChange('mapStyle', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -146,18 +203,18 @@ export function Settings() {
                 <Label className="text-sm font-medium text-foreground">Real-time Tracking</Label>
                 <p className="text-xs text-muted-foreground">Live unit position updates</p>
               </div>
-              <Switch defaultChecked />
+              <Switch id="realTimeTracking" checked={settings.map.realTimeTracking} onCheckedChange={(checked) => handleMapChange('realTimeTracking', checked)} />
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <Label className="text-sm font-medium text-foreground">Traffic Layer</Label>
                 <p className="text-xs text-muted-foreground">Show current traffic conditions</p>
               </div>
-              <Switch />
+              <Switch id="trafficLayer" checked={settings.map.trafficLayer} onCheckedChange={(checked) => handleMapChange('trafficLayer', checked)} />
             </div>
             <div>
               <Label htmlFor="refreshRate" className="text-sm font-medium text-foreground">Refresh Rate</Label>
-              <Select defaultValue="5">
+              <Select value={settings.map.refreshRate} onValueChange={(value) => handleMapChange('refreshRate', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -175,7 +232,7 @@ export function Settings() {
 
       {/* Save Button */}
       <div className="flex justify-end">
-        <Button size="lg">
+        <Button size="lg" onClick={handleSave}>
           Save Settings
         </Button>
       </div>

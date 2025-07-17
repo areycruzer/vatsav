@@ -49,3 +49,46 @@ By implementing Vatsav, the project aims to **significantly enhance India's emer
 *   **Improving caller experience with empathy and trust**.
 *   Critically, **saving thousands of lives annually**, with the economic value of lives saved potentially reaching **Rs 5,000 crore yearly**.
 *   It also has the potential to save up to **Rs 96 crore annually in operational costs** by reducing the need for human operators.
+
+## Running the Project Locally
+
+To run the Vatsav dashboard locally, you need to start three separate servers in three different terminal windows.
+
+### Prerequisites
+
+- Node.js
+- A separate clone of the `hume` repository (from `https://github.com/areycruzer/hume`) in the same parent directory as the `vatsav` project.
+- You must have a `.env.local` file in the `hume` project directory with the necessary Hume AI API keys.
+
+### 1. Start the Vatsav Backend Server
+
+This server handles the database connection and the main API.
+
+```bash
+# In the /vatsav directory
+cd /path/to/project/vatsav
+node server/index.js
+```
+This will start the backend on `http://localhost:3001`.
+
+### 2. Start the Hume EVI Server
+
+This server runs the voice call interface that is embedded in the dashboard.
+
+```bash
+# In the /hume directory
+cd /path/to/project/hume
+npm run dev -- -p 3003
+```
+This will start the Hume EVI server on `http://localhost:3003`.
+
+### 3. Start the Vatsav Frontend Server
+
+This server runs the main dashboard user interface.
+
+```bash
+# In the /vatsav directory
+cd /path/to/project/vatsav
+npm run dev
+```
+This will start the frontend on `http://localhost:8080` (or the next available port). You can then access the dashboard at this URL.

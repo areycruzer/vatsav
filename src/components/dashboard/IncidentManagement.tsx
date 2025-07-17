@@ -1,180 +1,153 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, Eye, Edit, Trash2 } from "lucide-react";
-
-const incidents = [
-  {
-    id: "001",
-    type: "Fire",
-    time: "10:03:20 AM IST",
-    duration: "2:12 min",
-    waitTime: "20 sec",
-    severity: "SAFE",
-    status: "Active",
-    location: "MG Road, Pune"
-  },
-  {
-    id: "002", 
-    type: "Flood",
-    time: "10:18:20 AM IST",
-    duration: "1:25 min",
-    waitTime: "19 sec",
-    severity: "CRITICAL",
-    status: "Resolved",
-    location: "Nariman Point, Mumbai"
-  },
-  {
-    id: "003",
-    type: "Fire", 
-    time: "10:03:20 AM IST",
-    duration: "2:12 min",
-    waitTime: "20 sec",
-    severity: "MILD",
-    status: "Active",
-    location: "Connaught Place, Delhi"
-  },
-  {
-    id: "004",
-    type: "Medical",
-    time: "10:08:12 AM IST", 
-    duration: "4:45 min",
-    waitTime: "17 sec",
-    severity: "SAFE",
-    status: "Resolved",
-    location: "Brigade Road, Bangalore"
-  },
-  {
-    id: "005",
-    type: "Fire",
-    time: "10:03:20 AM IST",
-    duration: "2:12 min", 
-    waitTime: "20 sec",
-    severity: "CRITICAL",
-    status: "Active",
-    location: "Park Street, Kolkata"
-  },
-  {
-    id: "006",
-    type: "Robbery",
-    time: "10:15:55 AM IST",
-    duration: "2:58 min",
-    waitTime: "28 sec", 
-    severity: "SAFE",
-    status: "Resolved",
-    location: "Anna Salai, Chennai"
-  },
-  {
-    id: "007",
-    type: "Fire",
-    time: "10:03:20 AM IST",
-    duration: "2:12 min",
-    waitTime: "20 sec",
-    severity: "CRITICAL", 
-    status: "Active",
-    location: "Sector 17, Chandigarh"
-  }
-];
+import { MapPin, Eye, Edit, Trash2 } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Incident } from "@/types";
+import IncidentMap from "./IncidentMap";
 
 export function IncidentManagement() {
+  const queryClient = useQueryClient();
+
+  const { data: incidents, isLoading, error } = useQuery<Incident[], Error>({
+    queryKey: ['emergencies'],
+    queryFn: async () => {
+      const response = await fetch('http://localhost:3001/api/emergencies');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    }
+  });
+
+  const deleteIncidentMutation = useMutation({
+    mutationFn: async (incidentId) => {
+      const response = await fetch(`http://localhost:3001/api/emergencies/${incidentId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete incident');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['emergencies'] });
+    },
+  });
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this incident?')) {
+      deleteIncidentMutation.mutate(id);
+    }
+  };
+
+  const handleView = (id) => console.log("View incident:", id);
+  const handleEdit = (id) => console.log("Edit incident:", id);
+
+  const mockSeverities = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
+  const getRandomSeverity = () => mockSeverities[Math.floor(Math.random() * mockSeverities.length)];
+
+  const getSeverityBadgeClass = (severity) => {
+    switch (severity?.toUpperCase()) {
+      case 'CRITICAL': return 'border-status-critical text-status-critical';
+      case 'HIGH': return 'border-red-500 text-red-500'; // Using red for high as an example
+      case 'MEDIUM': return 'border-status-warning text-status-warning';
+      case 'LOW': return 'border-status-safe text-status-safe';
+      default: return 'border-gray-500 text-gray-500';
+    }
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-foreground">Incident Management</h1>
-        <Button>
-          <MapPin className="w-4 h-4 mr-2" />
-          View on Map
-        </Button>
+    <div className="flex h-[calc(100vh-4rem)] min-h-0"> {/* 4rem for header if present */}
+      {/* Sidebar/Table */}
+      <div className="w-1/3 min-w-[350px] max-w-[500px] bg-bg-elevated border-r border-border overflow-y-auto flex flex-col">
+        <div className="flex items-center justify-between p-6 border-b border-border">
+          <h1 className="text-2xl font-bold text-foreground">Incident Management</h1>
+          <Button>
+            <MapPin className="w-4 h-4 mr-2" />
+            View on Map
+          </Button>
+        </div>
+        {/* Incidents Table */}
+        <div className="flex-1 overflow-y-auto">
+          <Card className="bg-bg-elevated border-none shadow-none">
+            <div className="p-6 border-b border-border">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-semibold text-foreground">Incident list</h2>
+                  <p className="text-sm text-muted-foreground">Active emergency responses</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button variant="outline" size="sm">Filter</Button>
+                  <Button variant="outline" size="sm">Export</Button>
+                </div>
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="border-b border-border">
+                  <tr className="text-left">
+                    <th className="p-4 text-sm font-medium text-muted-foreground">ID</th>
+                    <th className="p-4 text-sm font-medium text-muted-foreground">Type</th>
+                    <th className="p-4 text-sm font-medium text-muted-foreground">Time</th>
+                    <th className="p-4 text-sm font-medium text-muted-foreground">Location</th>
+                    <th className="p-4 text-sm font-medium text-muted-foreground">Severity</th>
+                    <th className="p-4 text-sm font-medium text-muted-foreground">Status</th>
+                    <th className="p-4 text-sm font-medium text-muted-foreground">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {isLoading ? (
+                    <tr><td colSpan={7} className="p-4 text-center text-muted-foreground">Loading incidents...</td></tr>
+                  ) : error ? (
+                    <tr><td colSpan={7} className="p-4 text-center text-destructive">Error loading incidents.</td></tr>
+                  ) : (
+                    incidents.map((incident) => {
+                      const severity = incident.triage_status || getRandomSeverity();
+                      return (
+                        <tr key={incident.id} className="border-b border-border hover:bg-bg-panel">
+                          <td className="p-4 text-sm text-foreground">{incident.id}</td>
+                          <td className="p-4 text-sm text-foreground">{incident.type || 'N/A'}</td>
+                          <td className="p-4 text-sm text-foreground">{new Date(incident.created_at).toLocaleTimeString()}</td>
+                          <td className="p-4 text-sm text-foreground">{incident.location || 'N/A'}</td>
+                          <td className="p-4">
+                            <Badge 
+                              variant="outline"
+                              className={`text-xs ${getSeverityBadgeClass(severity)}`}
+                            >
+                              {severity}
+                            </Badge>
+                          </td>
+                          <td className="p-4 text-sm text-foreground">{incident.status || 'Active'}</td>
+                          <td className="p-4">
+                            <div className="flex items-center gap-2">
+                              <Button variant="ghost" size="sm" onClick={() => handleView(incident.id)}>
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                              <Button variant="ghost" size="sm" onClick={() => handleEdit(incident.id)}>
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              <Button variant="ghost" size="sm" onClick={() => handleDelete(incident.id)}>
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
       </div>
-
-      {/* Map Placeholder */}
-      <Card className="h-80 bg-bg-elevated border-border relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-bg-panel to-bg-overlay">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-12 h-12 text-accent-main mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">Incident Map View</h3>
-              <p className="text-muted-foreground">Real-time incident locations and status</p>
-            </div>
-          </div>
-          
-          {/* Simulated incident markers */}
-          <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-status-critical rounded-full animate-pulse shadow-lg" />
-          <div className="absolute top-3/4 right-1/3 w-4 h-4 bg-status-warning rounded-full animate-pulse shadow-lg" />
-          <div className="absolute bottom-1/4 left-1/2 w-4 h-4 bg-status-safe rounded-full shadow-lg" />
-          <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-status-critical rounded-full animate-pulse shadow-lg" />
+      {/* Map */}
+      <div className="flex-1 h-full min-h-0 flex flex-col">
+        <div className="flex-1 h-full min-h-0">
+          <IncidentMap incidents={incidents} />
         </div>
-      </Card>
-
-      {/* Incidents Table */}
-      <Card className="bg-bg-elevated border-border">
-        <div className="p-6 border-b border-border">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-foreground">Incident list</h2>
-              <p className="text-sm text-muted-foreground">Active emergency responses</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">Filter</Button>
-              <Button variant="outline" size="sm">Export</Button>
-            </div>
-          </div>
-        </div>
-        
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="border-b border-border">
-              <tr className="text-left">
-                <th className="p-4 text-sm font-medium text-muted-foreground">ID</th>
-                <th className="p-4 text-sm font-medium text-muted-foreground">Type</th>
-                <th className="p-4 text-sm font-medium text-muted-foreground">Time</th>
-                <th className="p-4 text-sm font-medium text-muted-foreground">Duration</th>
-                <th className="p-4 text-sm font-medium text-muted-foreground">Wait time</th>
-                <th className="p-4 text-sm font-medium text-muted-foreground">Severity</th>
-                <th className="p-4 text-sm font-medium text-muted-foreground">Status</th>
-                <th className="p-4 text-sm font-medium text-muted-foreground">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {incidents.map((incident) => (
-                <tr key={incident.id} className="border-b border-border hover:bg-bg-panel">
-                  <td className="p-4 text-sm text-foreground">{incident.id}</td>
-                  <td className="p-4 text-sm text-foreground">{incident.type}</td>
-                  <td className="p-4 text-sm text-foreground">{incident.time}</td>
-                  <td className="p-4 text-sm text-foreground">{incident.duration}</td>
-                  <td className="p-4 text-sm text-foreground">{incident.waitTime}</td>
-                  <td className="p-4">
-                    <Badge 
-                      variant="outline"
-                      className={`text-xs ${
-                        incident.severity === 'CRITICAL' ? 'border-status-critical text-status-critical' :
-                        incident.severity === 'MILD' ? 'border-status-warning text-status-warning' :
-                        'border-status-safe text-status-safe'
-                      }`}
-                    >
-                      {incident.severity}
-                    </Badge>
-                  </td>
-                  <td className="p-4 text-sm text-foreground">{incident.status}</td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="sm">
-                        <Eye className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
+      </div>
     </div>
   );
 }

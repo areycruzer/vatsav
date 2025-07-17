@@ -1,14 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, BarChart3, Map, Users } from "lucide-react";
-
-const metrics = [
-  { label: "Total calls received", value: "146", status: "normal" },
-  { label: "Resolution rate", value: "99.7%", status: "normal" },
-  { label: "Total wait time", value: "31:21 min", status: "normal" },
-  { label: "Average wait time", value: "5 sec", status: "excessive" }
-];
+import { Download, Map } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import IncidentMap from "./IncidentMap";
+import { Incident } from "@/types";
 
 const statusData = [
   { name: "Control Tower Mumbai Central", location: "South Mumbai", status: "active" },
@@ -25,6 +22,51 @@ const dispatchers = [
 ];
 
 export function DataManagement() {
+  const { data: callLogs, isLoading: isLoadingCalls, error: callsError } = useQuery<any[], Error>({
+    queryKey: ['callLogs'],
+    queryFn: async () => {
+      const response = await fetch('http://localhost:3001/api/calls');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    }
+  });
+
+  const { data: incidents, isLoading: isLoadingIncidents, error: incidentsError } = useQuery<Incident[], Error>({
+    queryKey: ['emergencies'],
+    queryFn: async () => {
+      const response = await fetch('http://localhost:3001/api/emergencies');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    }
+  });
+
+  const processDataForChart = (logs) => {
+    if (!logs) return [];
+    const callsByHour = logs.reduce((acc, log) => {
+      const hour = new Date(log.created_at).getHours();
+      acc[hour] = (acc[hour] || 0) + 1;
+      return acc;
+    }, {});
+
+    return Array.from({ length: 24 }, (_, i) => ({
+      hour: `${i}:00`,
+      calls: callsByHour[i] || 0,
+    }));
+  };
+
+  const chartData = processDataForChart(callLogs);
+
+  const metrics = [
+    { label: "Total calls received", value: callLogs?.length ?? 0, status: "normal" },
+    { label: "Resolution rate", value: "99.7%", status: "normal" }, // Placeholder
+    { label: "Total wait time", value: "31:21 min", status: "normal" }, // Placeholder
+    { label: "Average wait time", value: "5 sec", status: "excessive" } // Placeholder
+  ];
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -110,10 +152,22 @@ export function DataManagement() {
             </Button>
           </div>
           <div className="h-64 bg-bg-panel rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <BarChart3 className="w-12 h-12 text-accent-main mx-auto mb-2" />
-              <p className="text-muted-foreground">Call volume analytics</p>
-            </div>
+             {isLoadingCalls ? (
+                <p className="text-muted-foreground">Loading chart data...</p>
+              ) : callsError ? (
+                <p className="text-destructive">Error loading chart data.</p>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="hour" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                    <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }} />
+                    <Legend />
+                    <Line type="monotone" dataKey="calls" stroke="hsl(var(--primary))" activeDot={{ r: 8 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              )}
           </div>
         </Card>
 
@@ -127,13 +181,13 @@ export function DataManagement() {
             </Button>
           </div>
           <div className="h-64 bg-bg-panel rounded-lg flex items-center justify-center relative">
-            <div className="text-center">
-              <Map className="w-12 h-12 text-accent-main mx-auto mb-2" />
-              <p className="text-muted-foreground">Geographic incident distribution</p>
-            </div>
-            <div className="absolute top-4 right-4 text-xs text-muted-foreground">
-              Frequency: Low → High
-            </div>
+            {isLoadingIncidents ? (
+              <p className="text-muted-foreground">Loading map...</p>
+            ) : incidentsError ? (
+              <p className="text-destructive">Error loading map data.</p>
+            ) : (
+              <IncidentMap incidents={incidents} />
+            )}
           </div>
         </Card>
       </div>

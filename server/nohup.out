@@ -1,0 +1,133 @@
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  enable debug logging with { debug: true })
+Server with database connection listening at http://localhost:3001
+Client connected
+Client disconnected
+Client connected
+Error analyzing call: GoogleGenerativeAIFetchError: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:401:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:374:9)
+    at async generateContent (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:803:22)
+    at async /home/cruzer/Desktop/project/vatsav/server/index.js:212:20 {
+  status: 400,
+  statusText: 'Bad Request',
+  errorDetails: [
+    {
+      '@type': 'type.googleapis.com/google.rpc.ErrorInfo',
+      reason: 'API_KEY_INVALID',
+      domain: 'googleapis.com',
+      metadata: [Object]
+    },
+    {
+      '@type': 'type.googleapis.com/google.rpc.LocalizedMessage',
+      locale: 'en-US',
+      message: 'API key not valid. Please pass a valid API key.'
+    }
+  ]
+}
+Error analyzing call: GoogleGenerativeAIFetchError: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:401:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:374:9)
+    at async generateContent (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:803:22)
+    at async /home/cruzer/Desktop/project/vatsav/server/index.js:212:20 {
+  status: 400,
+  statusText: 'Bad Request',
+  errorDetails: [
+    {
+      '@type': 'type.googleapis.com/google.rpc.ErrorInfo',
+      reason: 'API_KEY_INVALID',
+      domain: 'googleapis.com',
+      metadata: [Object]
+    },
+    {
+      '@type': 'type.googleapis.com/google.rpc.LocalizedMessage',
+      locale: 'en-US',
+      message: 'API key not valid. Please pass a valid API key.'
+    }
+  ]
+}
+[dotenv@17.2.0] injecting env (1) from .env (tip: ⚙️  override existing env vars with { override: true })
+Server with database connection listening at http://localhost:3001
+[dotenv@17.2.0] injecting env (1) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
+Server with database connection listening at http://localhost:3001
+Client connected
+Error analyzing call: SyntaxError: Unexpected token '`', "```json
+{
+"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/cruzer/Desktop/project/vatsav/server/index.js:215:27
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Client disconnected
+[dotenv@17.2.0] injecting env (1) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
+Server with database connection listening at http://localhost:3001
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Error analyzing call: TypeError: fetch failed
+    at node:internal/deps/undici/undici:14130:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:368:20)
+    at async generateContent (/home/cruzer/Desktop/project/vatsav/server/node_modules/@google/generative-ai/dist/index.js:803:22)
+    at async /home/cruzer/Desktop/project/vatsav/server/index.js:212:20
+[dotenv@17.2.0] injecting env (1) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
+Server with database connection listening at http://localhost:3001
+Client connected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+[dotenv@17.2.0] injecting env (1) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
+Server with database connection listening at http://localhost:3001
+Client connected
+Client disconnected
+Client connected
+exec error: Error: Command failed: curl -v https://generativelanguage.googleapis.com/v1beta/models
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0* Host generativelanguage.googleapis.com:443 was resolved.
+* IPv6: 2404:6800:4002:816::200a, 2404:6800:4002:815::200a, 2404:6800:4002:814::200a, 2404:6800:4002:813::200a
+* IPv4: 142.251.43.106, 142.250.206.106, 142.250.193.106, 172.217.166.10, 142.250.76.74, 172.217.24.74, 142.250.194.170, 142.250.194.74, 142.250.194.42, 142.250.194.10, 142.250.182.42, 142.250.193.10, 142.250.183.234, 142.250.193.138, 142.250.67.74, 142.251.223.138
+*   Trying [2404:6800:4002:816::200a]:443...
+*   Trying 142.251.43.106:443...
+  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [512 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:31 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:32 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:33 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:34 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:35 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:36 --:--:--     0* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to generativelanguage.googleapis.com:443 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:36 --:--:--     0
+* closing connection #0
+curl: (35) TLS connect error: error:00000000:lib(0)::reason(0)
+
+[dotenv@17.2.0] injecting env (1) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+Server with database connection listening at http://localhost:3001
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+Client disconnected

@@ -2,7 +2,11 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Bell, User, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function DashboardHeader() {
+interface DashboardHeaderProps {
+  onProfileClick?: () => void;
+}
+
+export function DashboardHeader({ onProfileClick }: DashboardHeaderProps) {
   return (
     <header className="h-16 border-b border-border bg-bg-elevated flex items-center justify-between px-6">
       <div className="flex items-center gap-4">
@@ -33,15 +37,19 @@ export function DashboardHeader() {
           <Bell className="w-4 h-4" />
         </Button>
         
-        <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-main rounded"
+          onClick={onProfileClick}
+        >
           <div className="w-8 h-8 bg-accent-main rounded-full flex items-center justify-center">
             <User className="w-4 h-4 text-white" />
           </div>
-          <div className="text-sm">
+          <div className="text-sm text-left">
             <div className="text-foreground">Vatsav Sharma</div>
             <div className="text-xs text-muted-foreground">Emergency Operator</div>
           </div>
-        </div>
+        </button>
       </div>
     </header>
   );

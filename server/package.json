@@ -1,0 +1,20 @@
+{
+  "name": "vatsav-server",
+  "version": "1.0.0",
+  "description": "Mock API server for the Vatsav dashboard.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.14.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "https-proxy-agent": "^7.0.6",
+    "pg": "^8.12.0",
+    "ws": "^8.17.1"
+  }
+}
